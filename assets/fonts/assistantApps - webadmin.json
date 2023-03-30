@@ -1,0 +1,361 @@
+{
+  "metadata": {
+    "name": "assistantApps - webadmin",
+    "lastOpened": 0,
+    "created": 1603969311078
+  },
+  "iconSets": [
+    {
+      "selection": [
+        {
+          "order": 1,
+          "id": 0,
+          "prevSize": 24,
+          "code": 169,
+          "name": "copy",
+          "tempChar": ""
+        }
+      ],
+      "id": 3,
+      "metadata": {
+        "name": "Material Icons (subset)",
+        "url": "https://material.io/resources/icons",
+        "designer": "Google",
+        "designerURL": "https://design.google",
+        "licenseURL": "https://www.apache.org/licenses/LICENSE-2.0.txt",
+        "license": "Apache License Version 2.0",
+        "iconsHash": 2049387245,
+        "importSize": {
+          "width": 24,
+          "height": 24
+        }
+      },
+      "height": 1024,
+      "prevSize": 24,
+      "icons": [
+        {
+          "id": 0,
+          "paths": [
+            "M598 512h234l-234-234v234zM640 214l256 256v426q0 34-26 60t-60 26h-470q-34 0-59-26t-25-60v-598q0-34 26-59t60-25h298zM682 42v86h-512v598h-84v-598q0-34 25-60t59-26h512z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "file_copy"
+          ],
+          "grid": 24
+        }
+      ],
+      "invisible": false,
+      "colorThemes": []
+    },
+    {
+      "selection": [
+        {
+          "order": 1,
+          "id": 1,
+          "prevSize": 32,
+          "code": 128065,
+          "name": "eye",
+          "tempChar": ""
+        },
+        {
+          "order": 1,
+          "id": 0,
+          "prevSize": 32,
+          "code": 128444,
+          "name": "images",
+          "tempChar": ""
+        }
+      ],
+      "id": 2,
+      "metadata": {
+        "name": "IcoMoon - Free (subset)",
+        "licenseURL": "https://icomoon.io/#icons-icomoon",
+        "license": "GPL or CC BY 4.0",
+        "designerURL": "http://keyamoon.com",
+        "designer": "Keyamoon",
+        "url": "https://icomoon.io/#icons-icomoon",
+        "iconsHash": 767040192,
+        "importSize": {
+          "width": 32,
+          "height": 32
+        }
+      },
+      "height": 1024,
+      "prevSize": 32,
+      "icons": [
+        {
+          "id": 1,
+          "paths": [
+            "M512 192c-223.318 0-416.882 130.042-512 320 95.118 189.958 288.682 320 512 320 223.312 0 416.876-130.042 512-320-95.116-189.958-288.688-320-512-320zM764.45 361.704c60.162 38.374 111.142 89.774 149.434 150.296-38.292 60.522-89.274 111.922-149.436 150.296-75.594 48.218-162.89 73.704-252.448 73.704-89.56 0-176.858-25.486-252.452-73.704-60.158-38.372-111.138-89.772-149.432-150.296 38.292-60.524 89.274-111.924 149.434-150.296 3.918-2.5 7.876-4.922 11.86-7.3-9.96 27.328-15.41 56.822-15.41 87.596 0 141.382 114.616 256 256 256 141.382 0 256-114.618 256-256 0-30.774-5.452-60.268-15.408-87.598 3.978 2.378 7.938 4.802 11.858 7.302v0zM512 416c0 53.020-42.98 96-96 96s-96-42.98-96-96 42.98-96 96-96 96 42.982 96 96z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "eye",
+            "views",
+            "vision",
+            "visit"
+          ],
+          "grid": 16
+        },
+        {
+          "id": 0,
+          "paths": [
+            "M1088 128h-64v-64c0-35.2-28.8-64-64-64h-896c-35.2 0-64 28.8-64 64v768c0 35.2 28.8 64 64 64h64v64c0 35.2 28.8 64 64 64h896c35.2 0 64-28.8 64-64v-768c0-35.2-28.8-64-64-64zM128 192v640h-63.886c-0.040-0.034-0.082-0.076-0.114-0.116v-767.77c0.034-0.040 0.076-0.082 0.114-0.114h895.77c0.040 0.034 0.082 0.076 0.116 0.116v63.884h-768c-35.2 0-64 28.8-64 64v0zM1088 959.884c-0.034 0.040-0.076 0.082-0.116 0.116h-895.77c-0.040-0.034-0.082-0.076-0.114-0.116v-767.77c0.034-0.040 0.076-0.082 0.114-0.114h895.77c0.040 0.034 0.082 0.076 0.116 0.116v767.768z",
+            "M960 352c0 53.020-42.98 96-96 96s-96-42.98-96-96 42.98-96 96-96 96 42.98 96 96z",
+            "M1024 896h-768v-128l224-384 256 320h64l224-192z"
+          ],
+          "attrs": [
+            {},
+            {},
+            {}
+          ],
+          "width": 1152,
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "images",
+            "pictures",
+            "photos",
+            "graphics"
+          ],
+          "grid": 16
+        }
+      ],
+      "invisible": false,
+      "colorThemes": []
+    },
+    {
+      "icons": [
+        {
+          "paths": [
+            "M950.144 827.093h-876.288c-40.766 0-73.813-33.047-73.813-73.813v0-482.56c0-40.766 33.047-73.813 73.813-73.813h876.288c40.766 0 73.813 33.047 73.813 73.813v482.475c0 0.025 0 0.055 0 0.085 0 40.766-33.047 73.813-73.813 73.813 0 0 0 0 0 0v0zM246.144 679.381v-192l98.475 123.093 98.432-123.093v192h98.475v-334.72h-98.475l-98.432 123.093-98.475-123.093h-98.475v334.805zM905.856 512h-98.475v-167.381h-98.432v167.381h-98.475l147.669 172.331z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "markdown"
+          ],
+          "grid": 0,
+          "id": 1
+        },
+        {
+          "paths": [
+            "M640 256v-256h-448l-192 192v576h384v256h640v-768h-384zM192 90.51v101.49h-101.49l101.49-101.49zM64 704v-448h192v-192h320v192l-192 192v256h-320zM576 346.51v101.49h-101.49l101.49-101.49zM960 960h-512v-448h192v-192h320v640z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "copy",
+            "duplicate",
+            "files",
+            "pages",
+            "papers",
+            "documents"
+          ],
+          "grid": 16,
+          "id": 2
+        },
+        {
+          "paths": [
+            "M128 320v640c0 35.2 28.8 64 64 64h576c35.2 0 64-28.8 64-64v-640h-704zM320 896h-64v-448h64v448zM448 896h-64v-448h64v448zM576 896h-64v-448h64v448zM704 896h-64v-448h64v448z",
+            "M848 128h-208v-80c0-26.4-21.6-48-48-48h-224c-26.4 0-48 21.6-48 48v80h-208c-26.4 0-48 21.6-48 48v80h832v-80c0-26.4-21.6-48-48-48zM576 128h-192v-63.198h192v63.198z"
+          ],
+          "attrs": [
+            {},
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "bin",
+            "trashcan",
+            "remove",
+            "delete",
+            "recycle",
+            "dispose"
+          ],
+          "grid": 16,
+          "id": 3
+        },
+        {
+          "paths": [
+            "M1014.662 822.66c-0.004-0.004-0.008-0.008-0.012-0.010l-310.644-310.65 310.644-310.65c0.004-0.004 0.008-0.006 0.012-0.010 3.344-3.346 5.762-7.254 7.312-11.416 4.246-11.376 1.824-24.682-7.324-33.83l-146.746-146.746c-9.148-9.146-22.45-11.566-33.828-7.32-4.16 1.55-8.070 3.968-11.418 7.31 0 0.004-0.004 0.006-0.008 0.010l-310.648 310.652-310.648-310.65c-0.004-0.004-0.006-0.006-0.010-0.010-3.346-3.342-7.254-5.76-11.414-7.31-11.38-4.248-24.682-1.826-33.83 7.32l-146.748 146.748c-9.148 9.148-11.568 22.452-7.322 33.828 1.552 4.16 3.97 8.072 7.312 11.416 0.004 0.002 0.006 0.006 0.010 0.010l310.65 310.648-310.65 310.652c-0.002 0.004-0.006 0.006-0.008 0.010-3.342 3.346-5.76 7.254-7.314 11.414-4.248 11.376-1.826 24.682 7.322 33.83l146.748 146.746c9.15 9.148 22.452 11.568 33.83 7.322 4.16-1.552 8.070-3.97 11.416-7.312 0.002-0.004 0.006-0.006 0.010-0.010l310.648-310.65 310.648 310.65c0.004 0.002 0.008 0.006 0.012 0.008 3.348 3.344 7.254 5.762 11.414 7.314 11.378 4.246 24.684 1.826 33.828-7.322l146.746-146.748c9.148-9.148 11.57-22.454 7.324-33.83-1.552-4.16-3.97-8.068-7.314-11.414z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "cross",
+            "cancel",
+            "close",
+            "quit",
+            "remove"
+          ],
+          "grid": 16,
+          "id": 4
+        },
+        {
+          "paths": [
+            "M864 0c88.364 0 160 71.634 160 160 0 36.020-11.91 69.258-32 96l-64 64-224-224 64-64c26.742-20.090 59.978-32 96-32zM64 736l-64 288 288-64 592-592-224-224-592 592zM715.578 363.578l-448 448-55.156-55.156 448-448 55.156 55.156z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "pencil",
+            "write",
+            "edit"
+          ],
+          "grid": 16,
+          "id": 5
+        },
+        {
+          "paths": [
+            "M896 0h-896v1024h1024v-896l-128-128zM512 128h128v256h-128v-256zM896 896h-768v-768h64v320h576v-320h74.978l53.022 53.018v714.982z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "floppy-disk",
+            "save"
+          ],
+          "grid": 16,
+          "id": 6
+        }
+      ],
+      "height": 1024,
+      "metadata": {
+        "name": "icomoon"
+      },
+      "preferences": {
+        "showGlyphs": true,
+        "showCodes": true,
+        "showQuickUse": true,
+        "showQuickUse2": true,
+        "showSVGs": true,
+        "fontPref": {
+          "prefix": "icon-",
+          "metadata": {
+            "fontFamily": "icomoon"
+          },
+          "metrics": {
+            "emSize": 1024,
+            "baseline": 6.25,
+            "whitespace": 50
+          },
+          "embed": false
+        },
+        "imagePref": {
+          "prefix": "icon-",
+          "png": true,
+          "useClassSelector": true,
+          "color": 0,
+          "bgColor": 16777215
+        },
+        "historySize": 50
+      },
+      "selection": [
+        {
+          "order": 1,
+          "id": 0,
+          "prevSize": 32,
+          "code": 128209,
+          "name": "markdown",
+          "tempChar": ""
+        },
+        {
+          "order": 0,
+          "id": 4,
+          "prevSize": 32,
+          "code": 169,
+          "name": "copy",
+          "tempChar": ""
+        },
+        {
+          "order": 1,
+          "id": 3,
+          "prevSize": 32,
+          "code": 128686,
+          "name": "delete",
+          "tempChar": ""
+        },
+        {
+          "order": 1,
+          "id": 2,
+          "name": "cancel",
+          "prevSize": 32,
+          "code": 10060,
+          "tempChar": ""
+        },
+        {
+          "order": 1,
+          "id": 1,
+          "name": "edit",
+          "prevSize": 32,
+          "code": 9999,
+          "tempChar": ""
+        },
+        {
+          "order": 1,
+          "id": 0,
+          "name": "save",
+          "prevSize": 32,
+          "code": 128190,
+          "tempChar": ""
+        }
+      ],
+      "prevSize": 32,
+      "id": 1
+    }
+  ],
+  "preferences": {
+    "showGlyphs": true,
+    "showCodes": true,
+    "showQuickUse": true,
+    "showQuickUse2": true,
+    "showSVGs": true,
+    "fontPref": {
+      "prefix": "icon-",
+      "metadata": {
+        "fontFamily": "icomoon"
+      },
+      "metrics": {
+        "emSize": 1024,
+        "baseline": 6.25,
+        "whitespace": 50
+      },
+      "embed": false
+    },
+    "imagePref": {
+      "prefix": "icon-",
+      "png": true,
+      "useClassSelector": true,
+      "color": 0,
+      "bgColor": 16777215
+    },
+    "historySize": 50
+  },
+  "uid": -1
+}

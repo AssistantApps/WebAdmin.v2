@@ -1,0 +1,5 @@
+{
+  "production": false,
+  "baseUrl": "https://api-staging.assistantapps.com",
+  "imageBaseUrl": "https://cdn-usr.assistantapps.com/Translation"
+}
