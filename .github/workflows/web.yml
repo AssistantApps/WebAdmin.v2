@@ -27,6 +27,15 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      - name: Setup Secrets
+        env:
+          VITE_AA_API_URL: ${{ secrets.VITE_AA_API_URL }}
+          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
+        run: |
+          touch .env
+          echo VITE_AA_API_URL="$GOOGLE_AUTH_KEY" >> .env
+          echo VITE_GOOGLE_CLIENT_ID="$VITE_GOOGLE_CLIENT_ID" >> .env
+
       - name: Build JS
         run: |
           npm install
