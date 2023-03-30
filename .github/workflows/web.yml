@@ -34,7 +34,7 @@ jobs:
           VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
         run: |
           touch .env
-          echo VITE_AA_API_URL="$GOOGLE_AUTH_KEY" >> .env
+          echo VITE_AA_API_URL="$VITE_AA_API_URL" >> .env
           echo VITE_AA_TRANSLATION_IMAGE_BASE_URL="$VITE_AA_TRANSLATION_IMAGE_BASE_URL" >> .env
           echo VITE_GOOGLE_CLIENT_ID="$VITE_GOOGLE_CLIENT_ID" >> .env
 
