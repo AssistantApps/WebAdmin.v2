@@ -1,0 +1,28 @@
+﻿/* Auto Generated */
+
+export enum EmoteButton {
+    none,
+    sClass,
+    aClass,
+    corruptedDrone,
+    ok,
+    amongUs,
+    amongUsDance,
+    bro,
+    bunnyheart,
+    facepalm,
+    fakeNews,
+    hype,
+    kittyGun,
+    pikaWhat,
+    pressF,
+    programming,
+    report,
+    yay,
+    seanMindBlown,
+    seanHead,
+    stonks,
+    ficsit,
+    ficsitThumbsUp,
+    ficsitHead,
+}

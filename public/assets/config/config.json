@@ -1,0 +1,6 @@
+{
+  "production": false,
+  "baseUrl": "http://localhost:55555",
+  "imageBaseUrl": "http://local.assistantapps.com",
+  "assistantAppsUrl": "http://localhost:55555"
+}
