@@ -35,4 +35,5 @@ export enum PermissionType {
     appNoticeManage,
     feedbackFormView,
     feedbackFormManage,
+    translationSubmissionView,
 }

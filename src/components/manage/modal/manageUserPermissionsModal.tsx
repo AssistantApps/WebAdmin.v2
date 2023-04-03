@@ -104,6 +104,7 @@ export const ManageUserPermissionsModal: Component<IProps> = (props: IProps) => 
             .replace('teamMember', '👪 |Team Member|')
             .replace('translationKey', '🌐 |Translation Key|')
             .replace('translationReport', '🌐 |Translation Report|')
+            .replace('translationSubmission', '🌐 |Translation Submission|')
             .replace('translation', '🌐 |Translation|')
             .replace('userPermissions', '🙎‍♂️ |User Permissions|')
             .replace('users', '🙎‍♂️ |Users|')

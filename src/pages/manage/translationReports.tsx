@@ -63,7 +63,7 @@ export const ManageTranslationReportsPage: Component = () => {
                                 getManageTranslationReportService().markAsClosed(item.guid),
                         },
                         {
-                            emoji: '🚮',
+                            emoji: '🗑️',
                             label: 'Resolve automatically (delete with all votes)',
                             order: 9,
                             onClick: (item: TranslationReportViewModel) =>

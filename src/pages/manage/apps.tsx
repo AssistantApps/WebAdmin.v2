@@ -17,6 +17,7 @@ export const ManageAppsPage: Component = () => {
             disableGetByIdOption={true}
             crudService={getManageAppsService()}
             defaultItem={{ sortOrder: 0, isVisible: false }}
+            setSortOrderOnItemLoad={true}
             tableHeadItems={[
                 { title: 'Icon Url', maxWidth: '75px', textAlign: 'center' },
                 { title: 'Logo Url', maxWidth: '75px', textAlign: 'center' },
