@@ -33,7 +33,7 @@ export const Sidebar: Component = () => {
         { route: routes.languages, title: '🗣 Languages', requiredPerm: PermissionType.languageView },
         { route: routes.donations, title: '💰 Donations', requiredPerm: PermissionType.donationView },
         { route: routes.translationKeys, title: '🌐 Translation Keys', requiredPerm: PermissionType.translationKeyView },
-        { route: routes.translationSubmissions, title: '🌐 Translation Submissions', requiredPerm: PermissionType.translationReportView },
+        { route: routes.translationSubmissions, title: '🌐 Translation Submissions', requiredPerm: PermissionType.translationSubmissionView },
         { route: routes.translationReports, title: '🌐 Translation Reports', requiredPerm: PermissionType.translationReportView },
         { disabled: true, route: routes.guideSubmissions, title: '📑 Guide Submissions', requiredPerm: PermissionType.guideSubmissionView },
         { route: routes.steamBranches, title: '🌿 Steam Branches', requiredPerm: PermissionType.steamBranchManage },
@@ -73,7 +73,7 @@ export const Sidebar: Component = () => {
                             <Box m={20} />
                             <Divider />
                         </Link>
-                        <Text class='version'>dev</Text>
+                        <Text class='version'>v{import.meta.env.PACKAGE_VERSION}</Text>
                     </Box>
                     <Box m={20} />
                     <SidebarTitle>Quick links</SidebarTitle>
@@ -90,7 +90,7 @@ export const Sidebar: Component = () => {
                             <SidebarNavLink href={routes.dashboard}>🏠 Dashboard</SidebarNavLink>
 
                             <For each={menuItems}>
-                                {(menuItem, index) => (
+                                {(menuItem) => (
                                     <Show when={permissions().includes(menuItem.requiredPerm)}>
                                         <SidebarNavLink
                                             href={menuItem.route}

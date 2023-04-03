@@ -74,8 +74,10 @@ interface IProps<T, TK> {
     disableDeleteAction?: boolean;
     disableGetByIdOption?: boolean;
     disableCopyGuidAction?: boolean;
+    setSortOrderOnItemLoad?: boolean;
     //
     propToFormMappings: Array<IPropertyToFormMapping<T>>;
+    renderExportCard?: (items: Array<T>) => JSX.Element;
     //
     striped?: "odd" | "even";
     highlightOnHover?: boolean;
@@ -96,6 +98,7 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
     const [totalPages, setTotalPages] = createSignal<number>(0);
     const [itemBeingEdited, setItemBeingEdited] = createSignal<T>();
     const [itemBeingCreated, setItemBeingCreated] = createSignal<T>(props.defaultItem ?? anyObject);
+    const [sortOrder, setSortOrder] = createSignal<number>((props.defaultItem ?? anyObject).sortOrder);
     const [rowItemBeingWorkedOn, setRowItemBeingWorkedOn] = createSignal<string>();
 
     onMount(() => {
@@ -125,6 +128,9 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
             setItems(allItemsResult.value);
             setTotalRows(allItemsResult.value.length);
             setTotalPages(Math.floor(allItemsResult.value.length / pageSize()));
+            if (props.setSortOrderOnItemLoad == true) {
+                setSortOrder(allItemsResult.value.length + 1);
+            }
         }
         setNetworkState(NetworkState.Success);
     }
@@ -386,7 +392,7 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
                                                             onClick: (actionItem: T) => setItemBeingEdited(actionItem as any),
                                                         }] : []),
                                                         ...(!props.disableDeleteAction ? [{
-                                                            emoji: '🚮',
+                                                            emoji: '🗑️',
                                                             label: 'Delete',
                                                             order: 99,
                                                             onClick: (actionItem: T) => deleteItem(actionItem),
@@ -502,6 +508,11 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
                     {props.children}
                 </Show>
 
+                <Show when={props.renderExportCard != null}>
+                    <Box m="2em" />
+                    {props.renderExportCard!(items())}
+                </Show>
+
                 <Box m="2em" />
 
                 <Show when={getFormMappingsThatAreVisibleIn(props.propToFormMappings, ManageResourceMode.Add)?.length > 0}>
@@ -509,7 +520,10 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
                         <Heading mb="1.5em">Create new record</Heading>
                         <ManageResourceCreateOrUpdate
                             mode={ManageResourceMode.Add}
-                            item={props.defaultItem ?? anyObject}
+                            item={{
+                                ...(props.defaultItem ?? anyObject),
+                                sortOrder: sortOrder(),
+                            }}
                             mappings={props.propToFormMappings}
                             updateObject={(item: T) => setItemBeingCreated(_ => item)}
                             updateProperty={(prop: string, value: string) => {
@@ -518,7 +532,7 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
                             }}
                         />
                         <HStack justifyContent="center" mt="2em">
-                            <Button onClick={createItem}>Add {props.itemName}</Button>
+                            <Button mb="1em" onClick={createItem}>Add {props.itemName}</Button>
                         </HStack>
                     </Card>
                 </Show>

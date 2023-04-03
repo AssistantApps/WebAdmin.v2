@@ -1,6 +1,6 @@
 {
   "name": "assistantapps-admin-v2",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "description": "",
   "scripts": {
     "start": "vite",
@@ -20,7 +20,8 @@
     "solid-markdown": "^1.2.1",
     "solid-transition-group": "^0.0.10",
     "sweetalert2": "^11.7.1",
-    "typedi": "^0.10.0"
+    "typedi": "^0.10.0",
+    "vite-plugin-package-version": "^1.0.2"
   },
   "devDependencies": {
     "@hope-ui/solid": "^0.6.7",

@@ -37,7 +37,7 @@ export class ManageTranslationKeysService extends BaseApiService implements Base
         for (const translationKeyImage of (translationKeyImages ?? [])) {
             await translationImageServ.add(
                 createResponse.value,
-                translationKeyImage,
+                translationKeyImage.contents,
             );
         }
 

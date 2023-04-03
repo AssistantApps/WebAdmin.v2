@@ -21,3 +21,16 @@ export const addScriptToHead = (id: string, url: string, onLoad?: () => void) =>
         console.error(err);
     }
 };
+
+export const downloadContentAsFile = (filename: string, fileContent: string) => {
+    const anchorElem = document.createElement('a');
+    anchorElem.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContent));
+    anchorElem.setAttribute('download', filename);
+
+    anchorElem.style.display = 'none';
+    document.body.appendChild(anchorElem);
+
+    anchorElem.click();
+
+    document.body.removeChild(anchorElem);
+}

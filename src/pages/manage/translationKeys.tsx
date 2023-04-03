@@ -1,6 +1,7 @@
 
-import { Td, Text } from '@hope-ui/solid';
+import { Box, Button, Heading, Td, Text } from '@hope-ui/solid';
 import { Component, createSignal } from 'solid-js';
+import { Card } from '../../components/common/card';
 import { FetchAndRender } from '../../components/common/fetchWrap';
 
 import { AppsDropdown } from '../../components/dropdown/appDropdown';
@@ -13,10 +14,60 @@ import { ManageResourceBasePage } from '../../components/manage/manageResourceBa
 import { ManageTranslationImageModal } from '../../components/manage/modal/manageTranslationImagesModal';
 import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
+import { copyTextToClipboard } from '../../helper/browserHelper';
+import { downloadContentAsFile } from '../../helper/documentHelper';
 import { getManageTranslationKeysService } from '../../services/api/manage/manageTranslationKeysService';
 
 export const ManageTranslationKeysPage: Component = () => {
     const [selectedTranslationKeyGuid, setSelectedTranslationKeyGuid] = createSignal<string>();
+
+    const generateExportFile = (items: Array<TranslationKeyViewModel>) => {
+        let textContent = 'enum LocaleKey {\n';
+
+        for (const item of items) {
+            textContent += `\t${item.key},\n`;
+        }
+
+        const additionalItems = [
+            'inputTooShort',
+            'inputTooLong',
+            'emailNotValid',
+            'inputTooLow',
+            'inputTooHigh',
+            'guideName',
+            'guideSubTitle',
+            'guideMinutes',
+            'guideTags',
+            'showCreatedBy',
+            'guideSectionHeading',
+            'guideSectionsAdd',
+            'guideSectionAddText',
+            'guideSectionAddLink',
+            'guideSectionAddLinkName',
+            'guideSectionAddLinkAddress',
+            'guideSectionAddImage',
+            'guideSectionAddImageCaption',
+            'guideSectionAddMarkdown',
+            'guideSectionAddMarkdownContent',
+            'guideSectionAddMarkdownPreview',
+            'guideSectionMoveUp',
+            'guideSectionMoveDown',
+            'guideSubmissionFailedTitle',
+            'guideSubmissionFailedMessage',
+            'guideSubmissionSuccessTitle',
+            'guideSubmissionSuccessMessage',
+            'loginRequiredTitle',
+            'loginRequiredMessage',
+        ];
+
+        textContent += `\t//\n`;
+        for (const itemKey of additionalItems) {
+            textContent += `\t${itemKey},\n`;
+        }
+        textContent += '}';
+
+        return textContent;
+    }
 
     return (
         <FetchAndRender
@@ -30,6 +81,7 @@ export const ManageTranslationKeysPage: Component = () => {
                         crudService={getManageTranslationKeysService()}
                         defaultItem={{ sortOrder: 0, isTranslatable: false }}
                         searchTooltip="Searches: key & meta & originalText"
+                        setSortOrderOnItemLoad={true}
                         searchFunc={(item: TranslationKeyViewModel, searchText: string) => (
                             item.key.includes(searchText) ||
                             item.meta.includes(searchText) ||
@@ -37,7 +89,7 @@ export const ManageTranslationKeysPage: Component = () => {
                         )}
                         tableHeadItems={[
                             { title: 'Key', width: '15%' },
-                            { title: 'App Types', maxWidth: '75px' },
+                            { title: 'App Types' },
                             { title: 'Meta' },
                             { title: 'Original' },
                             { title: 'Sort Order', maxWidth: '75px', textAlign: 'center' },
@@ -49,7 +101,7 @@ export const ManageTranslationKeysPage: Component = () => {
                                     <Text class="clamp-to-1-lines">{item.key}</Text>
                                 </Td>
                                 <TableAppLogosCell
-                                    maxWidth="75px"
+                                    minWidth="128px"
                                     selectedApps={item.appGuids}
                                     appsFromApi={apps}
                                 />
@@ -127,6 +179,14 @@ export const ManageTranslationKeysPage: Component = () => {
                                 placeholder: 'Paste image here',
                             },
                         ]}
+                        renderExportCard={(allItems: Array<TranslationKeyViewModel>) => (
+                            <Card class="section-export">
+                                <Heading mb="1.5em">Export TranslationKey</Heading>
+                                <Button onClick={() => copyTextToClipboard(generateExportFile(allItems))}>Copy .dart export content</Button>
+                                <Box m="0.5em" display="inline-block"></Box>
+                                <Button onClick={() => downloadContentAsFile('locale_key.dart', generateExportFile(allItems))}>Download .dart export</Button>
+                            </Card>
+                        )}
                     />
                     <ManageTranslationImageModal
                         title="Manage images for translation key"
