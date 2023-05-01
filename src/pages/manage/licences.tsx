@@ -1,8 +1,9 @@
 
+import { AppViewModel, LicenceViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td, Text } from '@hope-ui/solid';
 import { Component, Show } from 'solid-js';
-import { FetchAndRender } from '../../components/common/fetchWrap';
 
+import { FetchAndRender } from '../../components/common/fetchWrap';
 import { AppsDropdown } from '../../components/dropdown/appDropdown';
 import { TableAppLogosCell } from '../../components/manage/appLogos';
 import { codeModalMapping } from '../../components/manage/commonMapping';
@@ -11,8 +12,6 @@ import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { FormSwitch } from '../../components/manage/switch';
 import { ManageResourceMode } from '../../constants/enum/manageResourceMode';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { LicenceViewModel } from '../../contracts/generated/ViewModel/Licence/LicenceViewModel';
 import { formatDate } from '../../helper/dateHelper';
 import { getManageLicenceService } from '../../services/api/manage/manageLicenceService';
 

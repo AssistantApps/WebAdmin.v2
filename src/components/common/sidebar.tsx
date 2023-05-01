@@ -1,14 +1,14 @@
-import { Box, Center, Divider, ElementType, Flex, Heading, IconButton, Image, Text, TextProps, VStack } from "@hope-ui/solid";
-import { Component, For, Show } from "solid-js";
+import { PermissionType } from '@assistantapps/assistantapps.api.client';
+import { Box, Center, Divider, ElementType, Flex, Heading, IconButton, Image, Text, TextProps, VStack } from '@hope-ui/solid';
+import { Component, For, Show } from 'solid-js';
 
-import { Link } from "@solidjs/router";
-import { routes } from "../../constants/route";
-import { getSidebarIsOpen } from "../../services/store/sections/sidebarState";
-import { getStateService } from "../../services/store/stateService";
-import { SidebarNavLink } from "./sidebarNavLink";
-import { getAuthTokenExpire, getUserPermissions } from "../../services/store/sections/authState";
-import { isLoggedIn } from "../../helper/loginHelper";
-import { PermissionType } from "../../contracts/generated/Enum/permissionType";
+import { Link } from '@solidjs/router';
+import { routes } from '../../constants/route';
+import { isLoggedIn } from '../../helper/loginHelper';
+import { getAuthTokenExpire, getUserPermissions } from '../../services/store/sections/authState';
+import { getSidebarIsOpen } from '../../services/store/sections/sidebarState';
+import { getStateService } from '../../services/store/stateService';
+import { SidebarNavLink } from './sidebarNavLink';
 
 export const Sidebar: Component = () => {
     const stateRef = getStateService();

@@ -1,9 +1,9 @@
 
-import { Box, Button, Center, Image, Text, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from '@hope-ui/solid';
-import { Component, createEffect, createSignal, For, Show } from 'solid-js';
+import { TranslationImageViewModel } from '@assistantapps/assistantapps.api.client';
+import { Box, Button, Center, Image, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text } from '@hope-ui/solid';
+import { Component, For, Show, createEffect, createSignal } from 'solid-js';
 
 import { NetworkState } from '../../../constants/enum/networkState';
-import { TranslationImageViewModel } from '../../../contracts/generated/ViewModel/Translation/translationImageViewModel';
 import { IPastedImage } from '../../../contracts/pastedImage';
 import { getManageTranslationImageService } from '../../../services/api/manage/manageTranslationImageService';
 import { getConfig } from '../../../services/internal/configService';

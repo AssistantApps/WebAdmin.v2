@@ -1,29 +1,23 @@
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
+import { IApiSearch, ILanguageController, LanguageViewModel } from "@assistantapps/assistantapps.api.client";
 import { DataWithExpiry } from "../../../contracts/dataWithExpiry";
-import { LanguageViewModel } from "../../../contracts/generated/ViewModel/languageViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
 import { addSeconds, isBefore } from "../../../helper/dateHelper";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageLanguageService extends BaseApiService implements BaseCrudService<LanguageViewModel> {
+export class ManageLanguageService implements BaseCrudService<LanguageViewModel> {
     private _getLanguagesCache?: DataWithExpiry<Array<LanguageViewModel>>;
+    private _controller: () => ILanguageController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().language;
     }
 
     create(item: LanguageViewModel): Promise<Result> {
-        return this.post<any, LanguageViewModel>(
-            AAEndpoints.language, item,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create(item);
     }
 
     read(guid: string): Promise<ResultWithValue<LanguageViewModel>> {
@@ -31,10 +25,7 @@ export class ManageLanguageService extends BaseApiService implements BaseCrudSer
     }
 
     async readAll(search?: IApiSearch): Promise<ResultWithValue<Array<LanguageViewModel>>> {
-        const apiResult = await this.get<Array<LanguageViewModel>>(
-            AAEndpoints.language,
-            addAccessTokenToHeaders,
-        );
+        const apiResult = await this._controller().readAll();
 
         if (apiResult.isSuccess) {
             this._getLanguagesCache = {
@@ -59,15 +50,11 @@ export class ManageLanguageService extends BaseApiService implements BaseCrudSer
     }
 
     update(item: LanguageViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.language, item,
-            addAccessTokenToHeaders
-        );
+        return this._controller().update(item);
     }
 
     del(item: LanguageViewModel): Promise<Result> {
-        const url = `${AAEndpoints.language}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

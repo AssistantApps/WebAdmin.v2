@@ -1,9 +1,9 @@
-import { Component } from "solid-js";
+import { FeedbackQuestionType } from '@assistantapps/assistantapps.api.client';
+import { Component } from 'solid-js';
 
-import { FeedbackQuestionType } from "../../contracts/generated/Enum/feedbackQuestionType";
-import { getArrFromEnum } from "../../helper/enumHelper";
-import { addSpacesForEnum, capitalizeFirstLetter, lowercaseFirstLetter } from "../../helper/stringHelper";
-import { Dropdown } from "../common/dropdown";
+import { getArrFromEnum } from '../../helper/enumHelper';
+import { addSpacesForEnum, capitalizeFirstLetter, lowercaseFirstLetter } from '../../helper/stringHelper';
+import { Dropdown } from '../common/dropdown';
 
 interface IProps {
     placeholder?: string;

@@ -1,26 +1,20 @@
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { AppNoticeViewModel } from "../../../contracts/generated/ViewModel/appNoticeViewModel";
+import { AppNoticeViewModel, IApiSearch, IAppNoticeController } from "@assistantapps/assistantapps.api.client";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageAppNoticeService extends BaseApiService implements BaseCrudService<AppNoticeViewModel> {
+export class ManageAppNoticeService implements BaseCrudService<AppNoticeViewModel> {
+    private _controller: () => IAppNoticeController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().appNotice;
     }
 
     create(item: AppNoticeViewModel): Promise<Result> {
-        return this.post<any, AppNoticeViewModel>(
-            AAEndpoints.appNotice, item,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create(item);
     }
 
     read(guid: string): Promise<ResultWithValue<AppNoticeViewModel>> {
@@ -28,22 +22,15 @@ export class ManageAppNoticeService extends BaseApiService implements BaseCrudSe
     }
 
     readAll(search?: IApiSearch): Promise<ResultWithValue<Array<AppNoticeViewModel>>> {
-        return this.get<Array<AppNoticeViewModel>>(
-            `${AAEndpoints.appNotice}/Admin`,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAllForAdmin();
     }
 
     update(item: AppNoticeViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.appNotice, item,
-            addAccessTokenToHeaders
-        );
+        return this._controller().update(item);
     }
 
     del(item: AppNoticeViewModel): Promise<Result> {
-        const url = `${AAEndpoints.appNotice}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

@@ -1,26 +1,20 @@
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { TeamMemberViewModel } from "../../../contracts/generated/ViewModel/teamMemberViewModel";
+import { IApiSearch, ITeamMemberController, TeamMemberViewModel } from "@assistantapps/assistantapps.api.client";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageTeamMemberService extends BaseApiService implements BaseCrudService<TeamMemberViewModel> {
+export class ManageTeamMemberService implements BaseCrudService<TeamMemberViewModel> {
+    private _controller: () => ITeamMemberController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().teamMember;
     }
 
     create(item: TeamMemberViewModel): Promise<Result> {
-        return this.post<any, TeamMemberViewModel>(
-            AAEndpoints.teamMember, item,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create(item);
     }
 
     read(guid: string): Promise<ResultWithValue<TeamMemberViewModel>> {
@@ -28,22 +22,15 @@ export class ManageTeamMemberService extends BaseApiService implements BaseCrudS
     }
 
     readAll(search?: IApiSearch): Promise<ResultWithValue<Array<TeamMemberViewModel>>> {
-        return this.get<Array<TeamMemberViewModel>>(
-            AAEndpoints.teamMember,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAll();
     }
 
     update(item: TeamMemberViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.teamMember, item,
-            addAccessTokenToHeaders
-        );
+        return this._controller().update(item);
     }
 
     del(item: TeamMemberViewModel): Promise<Result> {
-        const url = `${AAEndpoints.teamMember}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

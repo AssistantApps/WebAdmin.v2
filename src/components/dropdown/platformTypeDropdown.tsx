@@ -1,9 +1,9 @@
-import { Component } from "solid-js";
+import { PlatformType } from '@assistantapps/assistantapps.api.client';
+import { Component } from 'solid-js';
 
-import { PlatformType } from "../../contracts/generated/Enum/platformType";
-import { getArrFromEnum } from "../../helper/enumHelper";
-import { capitalizeFirstLetter } from "../../helper/stringHelper";
-import { Dropdown } from "../common/dropdown";
+import { getArrFromEnum } from '../../helper/enumHelper';
+import { capitalizeFirstLetter } from '../../helper/stringHelper';
+import { Dropdown } from '../common/dropdown';
 
 interface IProps {
     placeholder?: string;

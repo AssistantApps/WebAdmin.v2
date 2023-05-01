@@ -1,9 +1,9 @@
 
+import { AppViewModel } from '@assistantapps/assistantapps.api.client';
 import { Flex, Image, Td, Tooltip } from '@hope-ui/solid';
 import { Component, For } from 'solid-js';
-import { AppImage } from '../../constants/image';
 
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
+import { AppImage } from '../../constants/image';
 
 interface ITableAppLogosCellProps {
     selectedApps: Array<string>;

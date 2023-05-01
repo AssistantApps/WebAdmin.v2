@@ -1,45 +1,28 @@
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { AppType } from "../../../contracts/generated/Enum/appType";
-import { SteamBranchItemViewModel } from "../../../contracts/generated/ViewModel/Steam/steamBranchItemViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
 import { getConfig } from "../../internal/configService";
 import { BaseApiService } from '../baseApiService';
 import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
-
-export interface ISteamBranchRow {
-    appType: AppType;
-    branches: Array<SteamBranchItemViewModel>;
-}
+import { AppType, IApiSearch, ISteamController } from "@assistantapps/assistantapps.api.client";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { ISteamBranchRow } from "@assistantapps/assistantapps.api.client/lib/services/api/controller/steam.controller";
 
 @Service()
-export class ManageSteamBranchService extends BaseApiService implements BaseCrudService<ISteamBranchRow> {
-
+export class ManageSteamBranchService implements BaseCrudService<ISteamBranchRow> {
     private _appTypes = [AppType.nms, AppType.sms];
+    private _controller: () => ISteamController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().steam;
     }
 
     create(item: ISteamBranchRow): Promise<Result> {
         throw new Error('ManageSteamBranchService: Method not implemented.');
     }
 
-    async read(appType: string): Promise<ResultWithValue<ISteamBranchRow>> {
-        const branchesResult = await this.get<Array<SteamBranchItemViewModel>>(
-            `${AAEndpoints.steamBranches}/${appType}`,
-            addAccessTokenToHeaders,
-        );
-        return {
-            ...branchesResult,
-            value: {
-                appType: AppType[appType as any] as any,
-                branches: branchesResult.value,
-            }
-        }
+    read(appType: string): Promise<ResultWithValue<ISteamBranchRow>> {
+        return this._controller().readBranch(appType);
     }
 
     async readAll(search?: IApiSearch): Promise<ResultWithValue<Array<ISteamBranchRow>>> {
@@ -61,11 +44,7 @@ export class ManageSteamBranchService extends BaseApiService implements BaseCrud
 
     update(item: ISteamBranchRow): Promise<Result> {
         const jsonArr = JSON.parse((item as any).branchesSTRING);
-        return this.post(
-            `${AAEndpoints.steamBranches}/${item.appType}`,
-            { NewData: jsonArr },
-            addAccessTokenToHeaders
-        );
+        return this._controller().updateBranch(item.appType.toString(), jsonArr);
     }
 
     del(item: ISteamBranchRow): Promise<Result> {

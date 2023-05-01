@@ -119,9 +119,9 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
         setRowItemBeingWorkedOn(undefined);
 
         if (props.serverPagination) {
-            setItems((allItemsResult.value as any).value);
-            setTotalRows((allItemsResult.value as any).totalRows);
-            setTotalPages((allItemsResult.value as any).totalPages);
+            setItems(allItemsResult.value);
+            setTotalRows((allItemsResult as any).totalRows);
+            setTotalPages((allItemsResult as any).totalPages);
             notificationService.clear();
         } else {
             setPage(0);

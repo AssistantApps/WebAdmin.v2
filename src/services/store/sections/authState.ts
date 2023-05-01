@@ -1,4 +1,4 @@
-import { PermissionType } from "../../../contracts/generated/Enum/permissionType";
+import { PermissionType } from "@assistantapps/assistantapps.api.client";
 import { StateService } from "../stateService";
 
 export interface IAuthState {
@@ -27,6 +27,6 @@ export const getAuthTokenExpire = (stateService: StateService): [state: () => Da
 ];
 
 export const getUserPermissions = (stateService: StateService): [state: () => Array<PermissionType>, setState: (state: Array<PermissionType>) => void] => [
-    () => stateService.getState().auth.permissions,
+    () => stateService.getState().auth.permissions ?? [],
     (permissions: Array<PermissionType>) => stateService.setState(s => s.auth.permissions = permissions),
 ];

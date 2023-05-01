@@ -1,29 +1,23 @@
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
+import { AppViewModel, IApiSearch, IAppController } from "@assistantapps/assistantapps.api.client";
 import { DataWithExpiry } from "../../../contracts/dataWithExpiry";
-import { AppViewModel } from "../../../contracts/generated/ViewModel/appViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
 import { addSeconds, isBefore } from "../../../helper/dateHelper";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageAppsService extends BaseApiService implements BaseCrudService<AppViewModel> {
+export class ManageAppsService implements BaseCrudService<AppViewModel> {
     private _getAppsCache?: DataWithExpiry<Array<AppViewModel>>;
+    private _controller: () => IAppController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().app;
     }
 
     create(item: AppViewModel): Promise<Result> {
-        return this.post<any, AppViewModel>(
-            AAEndpoints.app, item,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create(item);
     }
 
     read(guid: string): Promise<ResultWithValue<AppViewModel>> {
@@ -31,10 +25,7 @@ export class ManageAppsService extends BaseApiService implements BaseCrudService
     }
 
     async readAll(search?: IApiSearch): Promise<ResultWithValue<Array<AppViewModel>>> {
-        const apiResult = await this.get<Array<AppViewModel>>(
-            `${AAEndpoints.app}/Admin`,
-            addAccessTokenToHeaders,
-        );
+        const apiResult = await this._controller().readAllForAdmin(search);
 
         if (apiResult.isSuccess) {
             this._getAppsCache = {
@@ -59,15 +50,11 @@ export class ManageAppsService extends BaseApiService implements BaseCrudService
     }
 
     update(item: AppViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.app, item,
-            addAccessTokenToHeaders
-        );
+        return this._controller().update(item);
     }
 
     del(item: AppViewModel): Promise<Result> {
-        const url = `${AAEndpoints.app}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

@@ -1,8 +1,9 @@
 
+import { AppViewModel, PlatformType, VersionViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td, Text } from '@hope-ui/solid';
 import { Component } from 'solid-js';
-import { FetchAndRender } from '../../components/common/fetchWrap';
 
+import { FetchAndRender } from '../../components/common/fetchWrap';
 import { AppsDropdown } from '../../components/dropdown/appDropdown';
 import { PlatformTypeDropdown } from '../../components/dropdown/platformTypeDropdown';
 import { TableAppLogosCell } from '../../components/manage/appLogos';
@@ -11,9 +12,6 @@ import { GridItemSize } from '../../components/manage/grid';
 import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { FormMarkdown } from '../../components/manage/markdown';
-import { PlatformType } from '../../contracts/generated/Enum/platformType';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { VersionViewModel } from '../../contracts/generated/ViewModel/Version/versionViewModel';
 import { formatDate, formatForDateLocal } from '../../helper/dateHelper';
 import { capitalizeFirstLetter } from '../../helper/stringHelper';
 import { getManageVersionService } from '../../services/api/manage/manageVersionService';

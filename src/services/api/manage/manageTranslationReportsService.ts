@@ -1,20 +1,16 @@
 import { Container, Service } from "typedi";
+import { IApiSearch, ITranslationReportController, TranslationReportViewModel } from "@assistantapps/assistantapps.api.client";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { TranslationReportViewModel } from "../../../contracts/generated/ViewModel/Translation/translationReportViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { anyObject } from "../../../helper/typescriptHacks";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageTranslationReportService extends BaseApiService implements BaseCrudService<TranslationReportViewModel> {
+export class ManageTranslationReportService implements BaseCrudService<TranslationReportViewModel> {
+    private _controller: () => ITranslationReportController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().translationReport;
     }
 
     async create(item: TranslationReportViewModel): Promise<Result> {
@@ -26,10 +22,7 @@ export class ManageTranslationReportService extends BaseApiService implements Ba
     }
 
     async readAll(search?: IApiSearch): Promise<ResultWithValue<Array<TranslationReportViewModel>>> {
-        return this.get<Array<TranslationReportViewModel>>(
-            AAEndpoints.translationReport,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAll();
     }
 
     update(item: TranslationReportViewModel): Promise<Result> {
@@ -37,16 +30,15 @@ export class ManageTranslationReportService extends BaseApiService implements Ba
     }
 
     del(item: TranslationReportViewModel): Promise<Result> {
-        const url = `${AAEndpoints.translationReport}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        throw new Error('ManageTranslationReportService: Method not implemented.');
     }
 
     markAsResolved(guid: string): Promise<Result> {
-        return this.put(`${AAEndpoints.translationReport}/${guid}`, anyObject);
+        return this._controller().resolve(guid);
     }
 
     markAsClosed(guid: string): Promise<Result> {
-        return this.delete(`${AAEndpoints.translationReport}/${guid}`);
+        return this._controller().close(guid);
     }
 }
 

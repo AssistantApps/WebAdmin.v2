@@ -1,6 +1,6 @@
-import { Badge, hope } from "@hope-ui/solid";
+import { hope } from "@hope-ui/solid";
 import { NavLink } from "@solidjs/router";
-import { ComponentProps, Show, splitProps } from "solid-js";
+import { ComponentProps, splitProps } from "solid-js";
 
 const StyledNavLink = hope(NavLink, {
     baseStyle: {

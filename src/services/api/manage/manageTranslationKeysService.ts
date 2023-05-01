@@ -1,33 +1,26 @@
+import { IApiSearch, ITranslationKeyController, TranslationKeyViewModel } from "@assistantapps/assistantapps.api.client";
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
 import { DataWithExpiry } from "../../../contracts/dataWithExpiry";
-import { TranslationKeyViewModel } from "../../../contracts/generated/ViewModel/Translation/translationKeyViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
 import { addSeconds, isBefore } from "../../../helper/dateHelper";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 import { getManageTranslationImageService } from "./manageTranslationImageService";
 
 @Service()
-export class ManageTranslationKeysService extends BaseApiService implements BaseCrudService<TranslationKeyViewModel> {
+export class ManageTranslationKeysService implements BaseCrudService<TranslationKeyViewModel> {
     private _getTransKeysCache?: DataWithExpiry<Array<TranslationKeyViewModel>>;
+    private _controller: () => ITranslationKeyController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().translationKey;
     }
 
     async create(item: TranslationKeyViewModel): Promise<Result> {
         const { translationKeyImages, ...transKeyObj } = (item as any);
 
-        const createResponse = await this.post<any, TranslationKeyViewModel>(
-            AAEndpoints.translationKey,
-            transKeyObj,
-            addAccessTokenToHeaders,
-        );
+        const createResponse = await this._controller().create(transKeyObj);
 
         if (createResponse.isSuccess == false) {
             return createResponse;
@@ -49,10 +42,7 @@ export class ManageTranslationKeysService extends BaseApiService implements Base
     }
 
     async readAll(search?: IApiSearch): Promise<ResultWithValue<Array<TranslationKeyViewModel>>> {
-        const apiResult = await this.get<Array<TranslationKeyViewModel>>(
-            `${AAEndpoints.translationKey}/Admin`,
-            addAccessTokenToHeaders,
-        );
+        const apiResult = await this._controller().readAll();
 
         if (apiResult.isSuccess) {
             this._getTransKeysCache = {
@@ -77,15 +67,11 @@ export class ManageTranslationKeysService extends BaseApiService implements Base
     }
 
     update(item: TranslationKeyViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.translationKey, item,
-            addAccessTokenToHeaders
-        );
+        return this._controller().update(item);
     }
 
     del(item: TranslationKeyViewModel): Promise<Result> {
-        const url = `${AAEndpoints.translationKey}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

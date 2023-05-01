@@ -1,11 +1,12 @@
+import { AppViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td } from '@hope-ui/solid';
 import { Component } from 'solid-js';
+
 import { codeModalMapping, isVisibleMapping, sortOrderMapping } from '../../components/manage/commonMapping';
 import { GridItemSize } from '../../components/manage/grid';
 import { FormImageInput, TableLogoCell } from '../../components/manage/image';
 import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
 import { getManageAppsService } from '../../services/api/manage/manageAppService';
 
 export const ManageAppsPage: Component = () => {

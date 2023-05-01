@@ -1,48 +1,31 @@
+import { IPermissionController, PermissionType } from "@assistantapps/assistantapps.api.client";
 import { Container, Service } from "typedi";
-import { AAEndpoints } from "../../../constants/endpoints";
-import { PermissionType } from "../../../contracts/generated/Enum/permissionType";
 
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { anyObject } from "../../../helper/typescriptHacks";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
 
 @Service()
-export class ManagePermissionsService extends BaseApiService {
+export class ManagePermissionsService {
+    private _controller: () => IPermissionController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().permission;
     }
 
     getCurrentUsersPermissions(): Promise<ResultWithValue<Array<PermissionType>>> {
-        return this.get<Array<PermissionType>>(
-            AAEndpoints.permission,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readCurrentUsersPermissions();
     }
 
     getPermissionsForUserGuid(userGuid: string): Promise<ResultWithValue<Array<PermissionType>>> {
-        return this.get<Array<PermissionType>>(
-            `${AAEndpoints.permission}/${userGuid}`,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readPermissionsForUserGuid(userGuid);
     }
 
     addForUser(guid: string, permissionType: PermissionType): Promise<Result> {
-        return this.post<any, any>(
-            `${AAEndpoints.permission}/${guid}/${permissionType}`,
-            anyObject,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().addForUser(guid, permissionType);
     }
 
     delPermissionForUser(guid: string, permissionType: PermissionType): Promise<Result> {
-        return this.delete(
-            `${AAEndpoints.permission}/${guid}/${permissionType}`,
-            addAccessTokenToHeaders
-        );
+        return this._controller().delPermissionForUser(guid, permissionType);
     }
 }
 

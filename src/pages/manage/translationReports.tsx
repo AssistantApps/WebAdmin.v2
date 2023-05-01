@@ -1,13 +1,10 @@
+import { LanguageViewModel, TranslationKeyViewModel, TranslationReportStatus, TranslationReportViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td, Text } from '@hope-ui/solid';
 import { Component } from 'solid-js';
-import { FetchAndRender } from '../../components/common/fetchWrap';
 
+import { FetchAndRender } from '../../components/common/fetchWrap';
 import { LanguageFromGuid } from '../../components/manage/language';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
-import { TranslationReportStatus } from '../../contracts/generated/Enum/translationReportStatus';
-import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationReportViewModel } from '../../contracts/generated/ViewModel/Translation/translationReportViewModel';
 import { copyTextToClipboard } from '../../helper/browserHelper';
 import { formatDate } from '../../helper/dateHelper';
 import { capitalizeFirstLetter } from '../../helper/stringHelper';

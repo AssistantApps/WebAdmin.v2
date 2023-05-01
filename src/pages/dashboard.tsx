@@ -1,16 +1,15 @@
 
-import { Box, Center, Grid, GridItem, Heading, HStack, ListItem, SimpleGrid, UnorderedList, VStack } from '@hope-ui/solid';
+import { DashboardItemViewModel, UserActivityViewModel } from '@assistantapps/assistantapps.api.client';
+import { Box, Center, Heading, HStack, SimpleGrid, VStack } from '@hope-ui/solid';
 import { useNavigate } from '@solidjs/router';
 import { Component, createSignal, For, onMount, Show } from 'solid-js';
-import { Card } from '../components/common/card';
 
+import { Card } from '../components/common/card';
 import { PageHeader } from '../components/common/pageHeader';
 import { CenterLoading } from '../components/core/loading';
 import { UserActivityListItem } from '../components/userActivity';
 import { NetworkState } from '../constants/enum/networkState';
 import { routes } from '../constants/route';
-import { DashboardItemViewModel } from '../contracts/generated/ViewModel/dashboardItemViewModel';
-import { UserActivityViewModel } from '../contracts/generated/ViewModel/User/userActivityViewModel';
 import { Result } from '../contracts/resultWithValue';
 import { errorPopup } from '../helper/popupHelper';
 import { getAssistantAppsApi } from '../services/api/assistantAppsApiService';
