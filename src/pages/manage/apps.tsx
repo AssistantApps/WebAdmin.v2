@@ -36,7 +36,7 @@ export const ManageAppsPage: Component = () => {
                     <Td>{item.name}</Td>
                     <Td>{item.gameName}</Td>
                     <Td textAlign="center">
-                        <Show when={(item.linkUrl != null)}>
+                        <Show when={(item.linkUrl != null && item.linkUrl.length > 0)}>
                             <BasicLink href={item.linkUrl}>🔗</BasicLink>
                         </Show>
                     </Td>
