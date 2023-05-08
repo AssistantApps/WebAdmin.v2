@@ -1,45 +1,31 @@
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
+import { ICacheController, RedisCacheType } from "@assistantapps/assistantapps.api.client";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
 
 @Service()
-export class ManageCacheService extends BaseApiService {
+export class ManageCacheService {
+    private _controller: () => ICacheController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().cache;
     }
 
     getInMemoryCacheItems(): Promise<ResultWithValue<Array<string>>> {
-        return this.get<Array<string>>(
-            AAEndpoints.cache,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAllCache();
     }
 
     delInMemoryCacheItem(cacheKey: string): Promise<Result> {
-        return this.delete(
-            `${AAEndpoints.cache}/${cacheKey}`,
-            addAccessTokenToHeaders
-        );
+        return this._controller().delCache(cacheKey);
     }
 
     getRedisCacheItems(): Promise<ResultWithValue<Array<string>>> {
-        return this.get<Array<string>>(
-            AAEndpoints.redisCache,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAllRedisCache();
     }
 
-    delRedisCacheItem(cacheKey: string): Promise<Result> {
-        return this.delete(
-            `${AAEndpoints.redisCache}/${cacheKey}`,
-            addAccessTokenToHeaders
-        );
+    delRedisCacheItem(cacheKey: RedisCacheType): Promise<Result> {
+        return this._controller().delRedisCache(cacheKey);
     }
 }
 

@@ -1,32 +1,28 @@
 import { Container, Service } from "typedi";
+import { AddLicenceViewModel, IApiSearch, ILanguageController, ILicenceController, LicenceViewModel } from "@assistantapps/assistantapps.api.client";
 
 import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { LicenceViewModel } from "../../../contracts/generated/ViewModel/Licence/licenceViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
 import { getConfig } from "../../internal/configService";
 import { BaseApiService } from '../baseApiService';
 import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
 
 @Service()
-export class ManageLicenceService extends BaseApiService implements BaseCrudService<LicenceViewModel> {
+export class ManageLicenceService implements BaseCrudService<LicenceViewModel> {
+    private _controller: () => ILicenceController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().licence;
     }
 
     create(item: LicenceViewModel): Promise<Result> {
-        const payload: any = {
+        const payload: AddLicenceViewModel = {
             guid: item.guid,
             appGuid: item.appGuid,
             name: item.name,
         };
-        return this.post<any, LicenceViewModel>(
-            AAEndpoints.licence,
-            payload,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create(payload);
     }
 
     read(guid: string): Promise<ResultWithValue<LicenceViewModel>> {
@@ -34,10 +30,7 @@ export class ManageLicenceService extends BaseApiService implements BaseCrudServ
     }
 
     readAll(search?: IApiSearch): Promise<ResultWithValue<Array<LicenceViewModel>>> {
-        return this.get<Array<LicenceViewModel>>(
-            AAEndpoints.licence,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAll();
     }
 
     update(item: LicenceViewModel): Promise<Result> {
@@ -45,8 +38,7 @@ export class ManageLicenceService extends BaseApiService implements BaseCrudServ
     }
 
     del(item: LicenceViewModel): Promise<Result> {
-        const url = `${AAEndpoints.licence}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

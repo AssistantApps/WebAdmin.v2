@@ -1,11 +1,11 @@
 
+import { UserViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td } from '@hope-ui/solid';
 import { Component, createSignal } from 'solid-js';
 
 import { TableLogoCell } from '../../components/manage/image';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { ManageUserPermissionsModal } from '../../components/manage/modal/manageUserPermissionsModal';
-import { UserViewModel } from '../../contracts/generated/ViewModel/User/userViewModel';
 import { formatDate } from '../../helper/dateHelper';
 import { getManageUserService } from '../../services/api/manage/manageUserService';
 

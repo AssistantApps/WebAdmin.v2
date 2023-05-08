@@ -1,16 +1,15 @@
+import { FeedbackFormQuestionViewModel, FeedbackQuestionType } from '@assistantapps/assistantapps.api.client';
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Flex, Td, Text } from '@hope-ui/solid';
 import { useParams } from '@solidjs/router';
 import { Component } from 'solid-js';
-import { QuestionTypeDropdown } from '../../components/dropdown/questionTypeDropdown';
 
+import { QuestionTypeDropdown } from '../../components/dropdown/questionTypeDropdown';
 import { codeModalMapping, sortOrderMapping } from '../../components/manage/commonMapping';
 import { GridItemSize } from '../../components/manage/grid';
 import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { FormSwitch } from '../../components/manage/switch';
 import { feedbackFormGuidParam } from '../../constants/route';
-import { FeedbackQuestionType } from '../../contracts/generated/Enum/feedbackQuestionType';
-import { FeedbackFormQuestionViewModel } from '../../contracts/generated/ViewModel/FeedbackForm/feedbackFormQuestionViewModel';
 import { addSpacesForEnum, capitalizeFirstLetter } from '../../helper/stringHelper';
 import { ManageFeedbackFormQuestionService } from '../../services/api/manage/manageFeedbackFormQuestionService';
 

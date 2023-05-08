@@ -1,3 +1,4 @@
+import { AppViewModel, FeedbackFormViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td } from '@hope-ui/solid';
 import { useNavigate } from '@solidjs/router';
 import { Component } from 'solid-js';
@@ -10,8 +11,6 @@ import { GridItemSize } from '../../components/manage/grid';
 import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { feedbackFormGuidParam, routes } from '../../constants/route';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { FeedbackFormViewModel } from '../../contracts/generated/ViewModel/FeedbackForm/feedbackFormViewModel';
 import { formatDate } from '../../helper/dateHelper';
 import { getManageFeedbackFormService } from '../../services/api/manage/manageFeedbackFormService';
 

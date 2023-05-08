@@ -1,19 +1,16 @@
+import { IApiSearch, IUserController, UserViewModel } from "@assistantapps/assistantapps.api.client";
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { UserViewModel } from "../../../contracts/generated/ViewModel/User/userViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageUserService extends BaseApiService implements BaseCrudService<UserViewModel> {
+export class ManageUserService implements BaseCrudService<UserViewModel> {
+    private _controller: () => IUserController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().user;
     }
 
     create(item: UserViewModel): Promise<Result> {
@@ -25,14 +22,10 @@ export class ManageUserService extends BaseApiService implements BaseCrudService
     }
 
     readAll(search?: IApiSearch): Promise<ResultWithValue<Array<UserViewModel>>> {
-        return this.post<Array<UserViewModel>, any>(
-            AAEndpoints.user,
-            {
-                page: search?.page ?? 1,
-                searchText: search?.searchText ?? '',
-            },
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAllAdmin({
+            page: search?.page ?? 1,
+            searchText: search?.searchText ?? '',
+        });
     }
 
     update(item: UserViewModel): Promise<Result> {
@@ -40,8 +33,7 @@ export class ManageUserService extends BaseApiService implements BaseCrudService
     }
 
     del(item: UserViewModel): Promise<Result> {
-        const url = `${AAEndpoints.user}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

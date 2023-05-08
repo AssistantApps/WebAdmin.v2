@@ -1,7 +1,7 @@
 
-import { Box, Center, Heading, Image } from '@hope-ui/solid';
+import { Box, Heading } from '@hope-ui/solid';
 import { useNavigate } from '@solidjs/router';
-import { Component, onMount } from 'solid-js';
+import { Component } from 'solid-js';
 import { PageHeader } from '../components/common/pageHeader';
 import { CenterLoading } from '../components/core/loading';
 import { routes } from '../constants/route';

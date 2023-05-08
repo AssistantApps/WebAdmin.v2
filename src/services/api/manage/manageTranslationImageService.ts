@@ -1,38 +1,27 @@
 import { Container, Service } from "typedi";
+import { ITranslationImageController, TranslationImageViewModel } from "@assistantapps/assistantapps.api.client";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { TranslationImageViewModel } from "../../../contracts/generated/ViewModel/Translation/translationImageViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, formDataWithAccessTokenHeaders } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
 
 @Service()
-export class ManageTranslationImageService extends BaseApiService {
+export class ManageTranslationImageService {
+    private _controller: () => ITranslationImageController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().translationImage;
     }
 
     add(guid: string, formData: any): Promise<Result> {
-        return this.post<any, Array<TranslationImageViewModel>>(
-            `${AAEndpoints.translationImage}/${guid}`,
-            formData,
-            formDataWithAccessTokenHeaders,
-        );
+        return this._controller().add(guid, formData);
     }
 
     readAll(guid: string): Promise<ResultWithValue<Array<TranslationImageViewModel>>> {
-        return this.get<Array<TranslationImageViewModel>>(
-            `${AAEndpoints.translationImage}/${guid}`,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAll(guid);
     }
 
     del(item: TranslationImageViewModel): Promise<Result> {
-        const url = `${AAEndpoints.translationImage}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

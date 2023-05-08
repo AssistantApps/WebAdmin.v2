@@ -1,4 +1,5 @@
 
+import { DonationViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td } from '@hope-ui/solid';
 import { Component } from 'solid-js';
 
@@ -8,7 +9,6 @@ import { codeModalMapping, isVisibleMapping } from '../../components/manage/comm
 import { GridItemSize } from '../../components/manage/grid';
 import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
-import { DonationViewModel } from '../../contracts/generated/ViewModel/donationViewModel';
 import { formatDate, formatForDateLocal } from '../../helper/dateHelper';
 import { getManageDonationService } from '../../services/api/manage/manageDonationService';
 

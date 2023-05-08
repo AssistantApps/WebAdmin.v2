@@ -1,9 +1,10 @@
 
+import { AppViewModel, TranslationKeyViewModel } from '@assistantapps/assistantapps.api.client';
 import { Box, Button, Heading, Td, Text } from '@hope-ui/solid';
 import { Component, createSignal } from 'solid-js';
+
 import { Card } from '../../components/common/card';
 import { FetchAndRender } from '../../components/common/fetchWrap';
-
 import { AppsDropdown } from '../../components/dropdown/appDropdown';
 import { TableAppLogosCell } from '../../components/manage/appLogos';
 import { codeModalMapping, isTranslatableMapping, sortOrderMapping } from '../../components/manage/commonMapping';
@@ -12,8 +13,6 @@ import { FormImageDragAndDrop } from '../../components/manage/image';
 import { FormLongInput, FormTextArea } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { ManageTranslationImageModal } from '../../components/manage/modal/manageTranslationImagesModal';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { copyTextToClipboard } from '../../helper/browserHelper';
 import { downloadContentAsFile } from '../../helper/documentHelper';
 import { getManageTranslationKeysService } from '../../services/api/manage/manageTranslationKeysService';

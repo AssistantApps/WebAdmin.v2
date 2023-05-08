@@ -1,9 +1,9 @@
 
+import { PermissionType } from '@assistantapps/assistantapps.api.client';
 import { Box, Button, Center, Divider, Flex, Heading, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, VStack } from '@hope-ui/solid';
-import { Component, createEffect, createSignal, For, Show } from 'solid-js';
+import { Component, For, Show, createEffect, createSignal } from 'solid-js';
 
 import { NetworkState } from '../../../constants/enum/networkState';
-import { PermissionType } from '../../../contracts/generated/Enum/permissionType';
 import { getArrFromEnum } from '../../../helper/enumHelper';
 import { getManagePermissionsService } from '../../../services/api/manage/managePermissionService';
 import { Card } from '../../common/card';
@@ -53,7 +53,7 @@ export const ManageUserPermissionsModal: Component<IProps> = (props: IProps) => 
         }
 
         const allPerms = getArrFromEnum(PermissionType)
-            .filter(dt => dt > 0)
+            .filter(dt => (dt as any) > 0)
             .map(p => parseInt(p as any));
         const userPerms = permsResult.value;
         setPermissions(mapPermsToDropdown(userPerms));

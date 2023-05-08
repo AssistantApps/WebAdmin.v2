@@ -1,9 +1,9 @@
-import { Component, createEffect } from "solid-js";
+import { DonationType } from '@assistantapps/assistantapps.api.client';
+import { Component } from 'solid-js';
 
-import { DonationType } from "../../contracts/generated/Enum/donationType";
-import { getArrFromEnum } from "../../helper/enumHelper";
-import { capitalizeFirstLetter, lowercaseFirstLetter } from "../../helper/stringHelper";
-import { Dropdown } from "../common/dropdown";
+import { getArrFromEnum } from '../../helper/enumHelper';
+import { capitalizeFirstLetter, lowercaseFirstLetter } from '../../helper/stringHelper';
+import { Dropdown } from '../common/dropdown';
 
 interface IProps {
     placeholder?: string;

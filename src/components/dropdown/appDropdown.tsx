@@ -1,11 +1,11 @@
-import { Flex, Text } from "@hope-ui/solid";
-import { Component, createSignal, onMount, Show } from "solid-js";
+import { AppViewModel } from '@assistantapps/assistantapps.api.client';
+import { Flex, Text } from '@hope-ui/solid';
+import { Component, Show, createSignal, onMount } from 'solid-js';
 
-import { NetworkState } from "../../constants/enum/networkState";
-import { AppViewModel } from "../../contracts/generated/ViewModel/appViewModel";
-import { getManageAppsService } from "../../services/api/manage/manageAppService";
-import { Dropdown } from "../common/dropdown";
-import { SmolLoadingSpinner } from "../core/loading";
+import { NetworkState } from '../../constants/enum/networkState';
+import { getManageAppsService } from '../../services/api/manage/manageAppService';
+import { Dropdown } from '../common/dropdown';
+import { SmolLoadingSpinner } from '../core/loading';
 
 interface IProps {
     placeholder?: string;

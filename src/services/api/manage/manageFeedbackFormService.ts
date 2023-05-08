@@ -1,26 +1,20 @@
+import { FeedbackFormViewModel, IApiSearch, IFeedbackFormController } from "@assistantapps/assistantapps.api.client";
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { FeedbackFormViewModel } from "../../../contracts/generated/ViewModel/FeedbackForm/feedbackFormViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageFeedbackFormService extends BaseApiService implements BaseCrudService<FeedbackFormViewModel> {
+export class ManageFeedbackFormService implements BaseCrudService<FeedbackFormViewModel> {
+    private _controller: () => IFeedbackFormController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().feedbackForm;
     }
 
     create(item: FeedbackFormViewModel): Promise<Result> {
-        return this.post<any, FeedbackFormViewModel>(
-            AAEndpoints.feedbackForm, item,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create(item);
     }
 
     read(guid: string): Promise<ResultWithValue<FeedbackFormViewModel>> {
@@ -28,22 +22,15 @@ export class ManageFeedbackFormService extends BaseApiService implements BaseCru
     }
 
     readAll(search?: IApiSearch): Promise<ResultWithValue<Array<FeedbackFormViewModel>>> {
-        return this.get<Array<FeedbackFormViewModel>>(
-            `${AAEndpoints.feedbackForm}/Admin`,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAllForAdmin();
     }
 
     update(item: FeedbackFormViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.feedbackForm, item,
-            addAccessTokenToHeaders
-        );
+        return this._controller().update(item);
     }
 
     del(item: FeedbackFormViewModel): Promise<Result> {
-        const url = `${AAEndpoints.feedbackForm}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

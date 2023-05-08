@@ -1,9 +1,8 @@
 import * as jose from 'jose';
 import { Container, Service } from 'typedi';
+import { OAuthProviderType, OAuthUserViewModel } from '@assistantapps/assistantapps.api.client';
 
-import { OAuthProviderType } from '../../contracts/generated/Enum/oAuthProviderType';
-import { OAuthUserViewModel } from '../../contracts/generated/ViewModel/oAuthUserViewModel';
-import { AssistantAppsApiService, getAssistantAppsApi } from '../api/assistantAppsApiService';
+import { AuthedAssistantAppsApiService, getAssistantAppsApi } from '../api/assistantAppsApiService';
 import { ConfigService, getConfig } from '../internal/configService';
 
 interface IGoogleAuthResponse {
@@ -16,7 +15,7 @@ interface IGoogleAuthResponse {
 @Service()
 export class GoogleAuthService {
     private _config: ConfigService;
-    private _aaService: AssistantAppsApiService;
+    private _aaService: AuthedAssistantAppsApiService;
 
     constructor() {
         this._config = getConfig();

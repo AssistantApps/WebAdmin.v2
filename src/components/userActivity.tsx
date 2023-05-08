@@ -1,9 +1,8 @@
 
+import { UserActivityActionType, UserActivityViewModel } from '@assistantapps/assistantapps.api.client';
 import { Alert, Center, Flex, Text } from '@hope-ui/solid';
 import { Component } from 'solid-js';
 
-import { UserActivityActionType } from '../contracts/generated/Enum/userActivityActionType';
-import { UserActivityViewModel } from '../contracts/generated/ViewModel/User/userActivityViewModel';
 import { formatDate } from '../helper/dateHelper';
 
 interface IUserActivityListItemProps extends UserActivityViewModel {

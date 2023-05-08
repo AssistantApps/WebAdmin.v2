@@ -29,6 +29,7 @@ const ManageVersionsPage = lazy(() => import('./pages/manage/versions'))
 const ManageAppNoticesPage = lazy(() => import('./pages/manage/appNotices'))
 const ManageFeedbackFormsPage = lazy(() => import('./pages/manage/feedbackForms'))
 const ManageFeedbackFormQuestionsPage = lazy(() => import('./pages/manage/feedbackFormQuestions'))
+const ManageFeedbackFormAnswersPage = lazy(() => import('./pages/manage/feedbackFormAnswers'))
 // const ManageWebhookMessagesPage = lazy(() => import('./pages/manage/webhookMessages'))
 
 export const AppShell: Component = () => {
@@ -60,7 +61,7 @@ export const AppShell: Component = () => {
                             <Route path={removeAuthPrefix(routes.version)} component={ManageVersionsPage} />
                             <Route path={removeAuthPrefix(routes.appNotices)} component={ManageAppNoticesPage} />
                             <Route path={removeAuthPrefix(routes.feedbackForms)} component={ManageFeedbackFormsPage} />
-                            <Route path={removeAuthPrefix(routes.feedbackFormAnswers)} component={ManageFeedbackFormsPage} />
+                            <Route path={removeAuthPrefix(routes.feedbackFormAnswers)} component={ManageFeedbackFormAnswersPage} />
                             <Route path={removeAuthPrefix(routes.feedbackFormQuestions)} component={ManageFeedbackFormQuestionsPage} />
                             {/* <Route path={removeAuthPrefix(routes.webhookMessages)} component={ManageWebhookMessagesPage} /> */}
                         </Route>

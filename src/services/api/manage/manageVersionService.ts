@@ -1,26 +1,20 @@
+import { IApiSearch, IVersionController, VersionViewModel } from "@assistantapps/assistantapps.api.client";
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { VersionViewModel } from "../../../contracts/generated/ViewModel/Version/versionViewModel";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageVersionService extends BaseApiService implements BaseCrudService<VersionViewModel> {
+export class ManageVersionService implements BaseCrudService<VersionViewModel> {
+    private _controller: () => IVersionController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().version;
     }
 
     create(item: VersionViewModel): Promise<Result> {
-        return this.post<any, VersionViewModel>(
-            AAEndpoints.version, item,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create(item);
     }
 
     read(guid: string): Promise<ResultWithValue<VersionViewModel>> {
@@ -28,22 +22,15 @@ export class ManageVersionService extends BaseApiService implements BaseCrudServ
     }
 
     readAll(search?: IApiSearch): Promise<ResultWithValue<Array<VersionViewModel>>> {
-        return this.get<Array<VersionViewModel>>(
-            `${AAEndpoints.version}/Admin`,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAllForAdmin();
     }
 
     update(item: VersionViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.version, item,
-            addAccessTokenToHeaders
-        );
+        return this._controller().update(item);
     }
 
     del(item: VersionViewModel): Promise<Result> {
-        const url = `${AAEndpoints.version}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

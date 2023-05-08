@@ -1,18 +1,13 @@
 
+import { RedisCacheType } from '@assistantapps/assistantapps.api.client';
 import { Box, Center, Divider, Flex, Heading, Text, VStack } from '@hope-ui/solid';
-import { Component, createSignal, For, onMount, Show } from 'solid-js';
+import { Component, For, Show, createSignal, onMount } from 'solid-js';
+
 import { Card } from '../../components/common/card';
 import { PageHeader } from '../../components/common/pageHeader';
 import { LoadingSpinner } from '../../components/core/loading';
-
-import { TableLogoCell } from '../../components/manage/image';
-import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
-import { ManageUserPermissionsModal } from '../../components/manage/modal/manageUserPermissionsModal';
 import { NetworkState } from '../../constants/enum/networkState';
-import { UserViewModel } from '../../contracts/generated/ViewModel/User/userViewModel';
-import { formatDate } from '../../helper/dateHelper';
 import { getManageCacheService } from '../../services/api/manage/manageCacheService';
-import { getManageUserService } from '../../services/api/manage/manageUserService';
 
 export const ManageServerCachePage: Component = () => {
     const [inMemCacheItems, setInMemCacheItems] = createSignal<Array<string>>([]);
@@ -47,12 +42,12 @@ export const ManageServerCachePage: Component = () => {
         setRedisCacheItems(cacheItemsResult.value);
     }
 
-    const deleteRedis = async (cacheItem: string) => {
+    const deleteRedis = async (cacheItem: RedisCacheType) => {
         await getManageCacheService().delRedisCacheItem(cacheItem);
         fetchInMem();
     }
 
-    const renderCacheItemBlock = (onClick: (cacheItem: string) => void) => (cacheItem: string) => {
+    const renderCacheItemBlock = (onClick: (cacheItem: any) => void) => (cacheItem: any) => {
         return (
             <Box class="perm-item noselect pointer" onClick={() => onClick(cacheItem)}>
                 <Card>{cacheItem}&nbsp;<Text display="inline">❌</Text></Card>

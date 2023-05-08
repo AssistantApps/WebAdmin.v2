@@ -1,3 +1,4 @@
+import { ISteamBranchRow } from '@assistantapps/assistantapps.api.client';
 import { Alert, AlertDescription, AlertIcon, AlertTitle, Box, Button, Flex, Td } from '@hope-ui/solid';
 import { Component } from 'solid-js';
 
@@ -7,7 +8,7 @@ import { GridItemSize } from '../../components/manage/grid';
 import { FormTextArea } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { ManageResourceMode } from '../../constants/enum/manageResourceMode';
-import { getManageSteamBranchService, ISteamBranchRow } from '../../services/api/manage/manageSteamBranchesService';
+import { getManageSteamBranchService } from '../../services/api/manage/manageSteamBranchesService';
 
 export const ManageSteamBranchesPage: Component = () => {
 

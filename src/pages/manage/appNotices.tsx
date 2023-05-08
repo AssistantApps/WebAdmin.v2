@@ -1,5 +1,6 @@
 import { Td, Text } from '@hope-ui/solid';
 import { Component } from 'solid-js';
+import { AppNoticeViewModel, AppViewModel, LanguageViewModel, PlatformType } from '@assistantapps/assistantapps.api.client';
 
 import { FetchAndRender } from '../../components/common/fetchWrap';
 import { BasicLink } from '../../components/core/link';
@@ -12,10 +13,6 @@ import { GridItemSize } from '../../components/manage/grid';
 import { FormImageInput, TableLogoCell } from '../../components/manage/image';
 import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
-import { PlatformType } from '../../contracts/generated/Enum/platformType';
-import { AppNoticeViewModel } from '../../contracts/generated/ViewModel/AppNoticeViewModel';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
 import { formatDate, formatForDateLocal } from '../../helper/dateHelper';
 import { capitalizeFirstLetter } from '../../helper/stringHelper';
 import { getManageAppNoticeService } from '../../services/api/manage/manageAppNoticeService';

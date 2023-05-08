@@ -1,16 +1,15 @@
 
+import { LanguageViewModel, TranslationKeyViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td } from '@hope-ui/solid';
 import { Component } from 'solid-js';
-import { FetchAndRender } from '../../components/common/fetchWrap';
 
+import { FetchAndRender } from '../../components/common/fetchWrap';
 import { codeModalMapping, isVisibleMapping, sortOrderMapping } from '../../components/manage/commonMapping';
 import { GridItemSize } from '../../components/manage/grid';
-import { FormImageInput, getCountryCodeImage, TableLogoCell } from '../../components/manage/image';
+import { FormImageInput, TableLogoCell, getCountryCodeImage } from '../../components/manage/image';
 import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { TranslationKeyFromGuid } from '../../components/manage/translation';
-import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { getManageLanguageService } from '../../services/api/manage/manageLanguageService';
 
 export const ManageLanguagesPage: Component = () => {

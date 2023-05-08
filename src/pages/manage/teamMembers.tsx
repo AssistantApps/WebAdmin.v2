@@ -1,3 +1,4 @@
+import { TeamMemberViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td, Text } from '@hope-ui/solid';
 import { Component } from 'solid-js';
 
@@ -7,7 +8,6 @@ import { GridItemSize } from '../../components/manage/grid';
 import { FormImageInput, TableLogoCell } from '../../components/manage/image';
 import { FormLongInput } from '../../components/manage/input';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
-import { TeamMemberViewModel } from '../../contracts/generated/ViewModel/teamMemberViewModel';
 import { getManageTeamMemberService } from '../../services/api/manage/manageTeamMemberService';
 
 export const ManageMembersPage: Component = () => {

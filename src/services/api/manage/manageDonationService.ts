@@ -1,26 +1,20 @@
 import { Container, Service } from "typedi";
 
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { DonationViewModel } from "../../../contracts/generated/ViewModel/donationViewModel";
+import { DonationViewModel, IApiSearch, IDonationController } from "@assistantapps/assistantapps.api.client";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
 
 @Service()
-export class ManageDonationService extends BaseApiService implements BaseCrudService<DonationViewModel> {
+export class ManageDonationService implements BaseCrudService<DonationViewModel> {
+    private _controller: () => IDonationController;
 
     constructor() {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
+        this._controller = () => getAssistantAppsApi().getAuthedApi().donation;
     }
 
     create(item: DonationViewModel): Promise<Result> {
-        return this.post<any, DonationViewModel>(
-            AAEndpoints.donation, item,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create(item);
     }
 
     read(guid: string): Promise<ResultWithValue<DonationViewModel>> {
@@ -28,26 +22,15 @@ export class ManageDonationService extends BaseApiService implements BaseCrudSer
     }
 
     readAll(search?: IApiSearch): Promise<ResultWithValue<Array<DonationViewModel>>> {
-        return this.post<Array<DonationViewModel>, any>(
-            `${AAEndpoints.donation}/Search`,
-            {
-                page: search?.page ?? 1,
-                searchText: search?.searchText ?? '',
-            },
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readAllForAdmin(search);
     }
 
     update(item: DonationViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.donation, item,
-            addAccessTokenToHeaders
-        );
+        return this._controller().update(item);
     }
 
     del(item: DonationViewModel): Promise<Result> {
-        const url = `${AAEndpoints.donation}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

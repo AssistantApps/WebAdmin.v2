@@ -1,29 +1,23 @@
-import { AAEndpoints } from "../../../constants/endpoints";
-import { IApiSearch } from "../../../contracts/apiObjects";
-import { FeedbackFormQuestionViewModel } from "../../../contracts/generated/ViewModel/FeedbackForm/feedbackFormQuestionViewModel";
-import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { FeedbackFormQuestionViewModel, IApiSearch, IFeedbackFormQuestionController } from "@assistantapps/assistantapps.api.client";
 
-export class ManageFeedbackFormQuestionService extends BaseApiService implements BaseCrudService<FeedbackFormQuestionViewModel> {
+import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
+import { getAssistantAppsApi } from "../assistantAppsApiService";
+import { BaseCrudService } from "./baseCrudService";
+
+export class ManageFeedbackFormQuestionService implements BaseCrudService<FeedbackFormQuestionViewModel> {
     private _feedbackFormGuid: string;
+    private _controller: () => IFeedbackFormQuestionController;
 
     constructor(feedbackFormGuid: string) {
-        const config = getConfig();
-        super(config.getAssistantAppsUrl());
         this._feedbackFormGuid = feedbackFormGuid;
+        this._controller = () => getAssistantAppsApi().getAuthedApi().feedbackFormQuestion;
     }
 
     create(item: FeedbackFormQuestionViewModel): Promise<Result> {
-        return this.post<any, FeedbackFormQuestionViewModel>(
-            AAEndpoints.feedbackFormQuestion,
-            {
-                ...item,
-                feedbackFormGuid: this._feedbackFormGuid,
-            },
-            addAccessTokenToHeaders,
-        );
+        return this._controller().create({
+            ...item,
+            feedbackFormGuid: this._feedbackFormGuid,
+        });
     }
 
     read(guid: string): Promise<ResultWithValue<FeedbackFormQuestionViewModel>> {
@@ -31,26 +25,18 @@ export class ManageFeedbackFormQuestionService extends BaseApiService implements
     }
 
     readAll(search?: IApiSearch): Promise<ResultWithValue<Array<FeedbackFormQuestionViewModel>>> {
-        return this.get<Array<FeedbackFormQuestionViewModel>>(
-            `${AAEndpoints.feedbackFormQuestion}/${this._feedbackFormGuid}`,
-            addAccessTokenToHeaders,
-        );
+        return this._controller().readForFeedback(this._feedbackFormGuid);
     }
 
     update(item: FeedbackFormQuestionViewModel): Promise<Result> {
-        return this.put(
-            AAEndpoints.feedbackFormQuestion,
-            {
-                ...item,
-                feedbackFormGuid: this._feedbackFormGuid,
-            },
-            addAccessTokenToHeaders
-        );
+        return this._controller().update({
+            ...item,
+            feedbackFormGuid: this._feedbackFormGuid,
+        });
     }
 
     del(item: FeedbackFormQuestionViewModel): Promise<Result> {
-        const url = `${AAEndpoints.feedbackFormQuestion}/${item.guid}`;
-        return this.delete(url, addAccessTokenToHeaders);
+        return this._controller().del(item.guid);
     }
 }
 

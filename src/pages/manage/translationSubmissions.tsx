@@ -1,12 +1,11 @@
+import { TranslationKeyViewModel, TranslationSubmittedDetailViewModel } from '@assistantapps/assistantapps.api.client';
 import { Td, Text, Tooltip } from '@hope-ui/solid';
 import { Component } from 'solid-js';
-import { FetchAndRender } from '../../components/common/fetchWrap';
 
+import { FetchAndRender } from '../../components/common/fetchWrap';
 import { getCountryCodeImage, TableLogoCell } from '../../components/manage/image';
 import { ManageResourceBasePage } from '../../components/manage/manageResourceBasePage';
 import { TranslationKeyFromGuid } from '../../components/manage/translation';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
-import { TranslationSubmittedDetailViewModel } from '../../contracts/generated/ViewModel/Translation/translationSubmittedDetailViewModel';
 import { copyTextToClipboard } from '../../helper/browserHelper';
 import { formatDate } from '../../helper/dateHelper';
 import { getManageTranslationSubmissionsService } from '../../services/api/manage/manageTranslationSubmissionsService';
