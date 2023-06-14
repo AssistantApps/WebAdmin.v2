@@ -56,15 +56,15 @@ export const ManageTranslationReportsPage: Component = () => {
                             emoji: '❌',
                             label: 'Mark as closed (do nothing)',
                             order: 8,
-                            onClick: (item: TranslationReportViewModel) =>
-                                getManageTranslationReportService().markAsClosed(item.guid),
+                            onClick: (item: TranslationReportViewModel, getAllItems: () => void) =>
+                                getManageTranslationReportService().markAsClosed(item.guid).then(getAllItems),
                         },
                         {
                             emoji: '🗑️',
                             label: 'Resolve automatically (delete with all votes)',
                             order: 9,
-                            onClick: (item: TranslationReportViewModel) =>
-                                getManageTranslationReportService().markAsResolved(item.guid),
+                            onClick: (item: TranslationReportViewModel, getAllItems: () => void) =>
+                                getManageTranslationReportService().markAsResolved(item.guid).then(getAllItems),
                         },
                     ]}
                     propToFormMappings={[]}
