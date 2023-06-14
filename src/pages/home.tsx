@@ -17,7 +17,7 @@ export const HomePage: Component = () => {
 
             <Box m={50}></Box>
 
-            <Heading size="3xl" textAlign="center">Welcome to the No Man's Sky Social <b>Admin Panel!</b></Heading>
+            <Heading size="3xl" textAlign="center">Welcome to the Assistant for No Man's Sky <b>Admin Panel!</b></Heading>
         </>
     );
 };
