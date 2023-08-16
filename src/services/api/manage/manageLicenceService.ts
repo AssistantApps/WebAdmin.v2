@@ -1,11 +1,8 @@
 import { Container, Service } from "typedi";
-import { AddLicenceViewModel, IApiSearch, ILanguageController, ILicenceController, LicenceViewModel } from "@assistantapps/assistantapps.api.client";
+import { AddLicenceViewModel, IApiSearch, ILicenceController, LicenceViewModel } from "@assistantapps/assistantapps.api.client";
 
-import { AAEndpoints } from "../../../constants/endpoints";
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { BaseCrudService } from "./baseCrudService";
 import { getAssistantAppsApi } from "../assistantAppsApiService";
 
 @Service()

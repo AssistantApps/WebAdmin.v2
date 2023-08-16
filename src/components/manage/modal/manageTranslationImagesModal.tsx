@@ -59,6 +59,7 @@ export const ManageTranslationImageModal: Component<IProps> = (props: IProps) =>
         for (const translationKeyImage of (pastedImages ?? [])) {
             await translationImageServ.add(
                 props.translationKeyGuid,
+                translationKeyImage.name,
                 translationKeyImage.contents,
             );
         }

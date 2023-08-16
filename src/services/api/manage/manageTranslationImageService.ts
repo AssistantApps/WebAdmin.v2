@@ -12,8 +12,8 @@ export class ManageTranslationImageService {
         this._controller = () => getAssistantAppsApi().getAuthedApi().translationImage;
     }
 
-    add(guid: string, formData: any): Promise<Result> {
-        return this._controller().add(guid, formData);
+    add(guid: string, fileName: any, data: any): Promise<Result> {
+        return this._controller().add(guid, fileName, data);
     }
 
     readAll(guid: string): Promise<ResultWithValue<Array<TranslationImageViewModel>>> {
