@@ -1,6 +1,6 @@
 {
   "name": "assistantapps-admin-v2",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "",
   "scripts": {
     "start": "vite",
@@ -10,8 +10,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@assistantapps/assistantapps.api.client": "^0.0.18",
-    "@solid-auth/socials": "^0.0.8",
+    "@assistantapps/assistantapps.api.client": "^0.0.19",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "jose": "^4.13.1",
@@ -19,7 +18,7 @@
     "solid-js": "^1.6.10",
     "solid-markdown": "^1.2.1",
     "solid-transition-group": "^0.0.10",
-    "sweetalert2": "^11.7.1",
+    "sweetalert2": "^11.6.3",
     "typedi": "^0.10.0",
     "vite-plugin-package-version": "^1.0.2"
   },
