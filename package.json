@@ -1,6 +1,6 @@
 {
   "name": "assistantapps-admin-v2",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "",
   "scripts": {
     "start": "vite",
@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@assistantapps/assistantapps.api.client": "^0.0.19",
+    "@assistantapps/assistantapps.api.client": "^0.0.20",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "jose": "^4.13.1",

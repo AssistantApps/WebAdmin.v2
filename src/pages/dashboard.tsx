@@ -47,7 +47,7 @@ export const DashboardPage: Component = () => {
                 title: 'Permissions error',
                 description: 'There was an error fetching your permissions, please try logging in again',
                 onConfirm: () => navigate(routes.login, { replace: true }),
-            })
+            });
         } else {
             setPermissions(perms.value);
         }
