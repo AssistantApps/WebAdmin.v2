@@ -16,6 +16,7 @@ import { ManageTranslationImageModal } from '../../components/manage/modal/manag
 import { copyTextToClipboard } from '../../helper/browserHelper';
 import { downloadContentAsFile } from '../../helper/documentHelper';
 import { getManageTranslationKeysService } from '../../services/api/manage/manageTranslationKeysService';
+import { temporaryHardCodedTranslationKeys } from '../../constants/translationKeys';
 
 export const ManageTranslationKeysPage: Component = () => {
     const [selectedTranslationKeyGuid, setSelectedTranslationKeyGuid] = createSignal<string>();
@@ -27,40 +28,8 @@ export const ManageTranslationKeysPage: Component = () => {
             textContent += `\t${item.key},\n`;
         }
 
-        const additionalItems = [
-            'inputTooShort',
-            'inputTooLong',
-            'emailNotValid',
-            'inputTooLow',
-            'inputTooHigh',
-            'guideName',
-            'guideSubTitle',
-            'guideMinutes',
-            'guideTags',
-            'showCreatedBy',
-            'guideSectionHeading',
-            'guideSectionsAdd',
-            'guideSectionAddText',
-            'guideSectionAddLink',
-            'guideSectionAddLinkName',
-            'guideSectionAddLinkAddress',
-            'guideSectionAddImage',
-            'guideSectionAddImageCaption',
-            'guideSectionAddMarkdown',
-            'guideSectionAddMarkdownContent',
-            'guideSectionAddMarkdownPreview',
-            'guideSectionMoveUp',
-            'guideSectionMoveDown',
-            'guideSubmissionFailedTitle',
-            'guideSubmissionFailedMessage',
-            'guideSubmissionSuccessTitle',
-            'guideSubmissionSuccessMessage',
-            'loginRequiredTitle',
-            'loginRequiredMessage',
-        ];
-
         textContent += `\t//\n`;
-        for (const itemKey of additionalItems) {
+        for (const itemKey of temporaryHardCodedTranslationKeys) {
             textContent += `\t${itemKey},\n`;
         }
         textContent += '}';

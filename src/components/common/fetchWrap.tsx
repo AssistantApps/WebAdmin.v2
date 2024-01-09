@@ -1,10 +1,9 @@
 import { Center } from '@hope-ui/solid';
 import { Component, createSignal, JSX, onMount, Show } from 'solid-js';
+import { AppViewModel, LanguageViewModel, TranslationKeyViewModel } from '@assistantapps/assistantapps.api.client';
+
 import { CenterLoading } from '../../components/core/loading';
 import { NetworkState } from '../../constants/enum/networkState';
-import { AppViewModel } from '../../contracts/generated/ViewModel/appViewModel';
-import { LanguageViewModel } from '../../contracts/generated/ViewModel/languageViewModel';
-import { TranslationKeyViewModel } from '../../contracts/generated/ViewModel/Translation/translationKeyViewModel';
 import { getManageAppsService } from '../../services/api/manage/manageAppService';
 import { getManageLanguageService } from '../../services/api/manage/manageLanguageService';
 import { getManageTranslationKeysService } from '../../services/api/manage/manageTranslationKeysService';

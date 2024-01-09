@@ -4,24 +4,22 @@ import { Component, createSignal, For, JSX, onMount, Show } from 'solid-js';
 import { ManageResourceMode } from '../../constants/enum/manageResourceMode';
 
 import { NetworkState } from '../../constants/enum/networkState';
+import { IDatabaseRecord } from '../../contracts/manageResource';
 import { copyTextToClipboard } from '../../helper/browserHelper';
 import { debounceLeading } from '../../helper/debounceHelper';
+import { stringInputPopup } from '../../helper/popupHelper';
 import { anyObject } from '../../helper/typescriptHacks';
 import { BaseCrudService } from '../../services/api/manage/baseCrudService';
 import { Card } from '../common/card';
-import { CodeModal } from '../common/code';
 import { Dropdown } from '../common/dropdown';
+import { CodeIcon } from '../common/icon/codeIcon';
 import { SearchIcon } from '../common/icon/seachIcon';
 import { PageHeader } from '../common/pageHeader';
 import { WrapWhen } from '../common/wrapWhen';
-import { CenterLoading, LoadingSpinner, SmolLoadingSpinner } from '../core/loading';
+import { CenterLoading, LoadingSpinner } from '../core/loading';
 import { GridItemSize } from './grid';
-import { ManageResourceBaseModal } from './modal/manageResourceBaseModal';
 import { ManageResourceCreateOrUpdate } from './manageResourceCreateOrUpdateComp';
-import { CodeIcon } from '../common/icon/codeIcon';
-import { stringInputPopup } from '../../helper/popupHelper';
-import { IDatabaseRecord } from '../../contracts/manageResource';
-import { timeout } from '../../helper/asyncHelper';
+import { ManageResourceBaseModal } from './modal/manageResourceBaseModal';
 
 interface ITableHeadProps {
     title: string;
@@ -35,7 +33,8 @@ interface IActionProps<T> {
     label: string;
     emoji: string;
     order: number;
-    onClick: (item: T) => void;
+    refreshAfterOnClick?: boolean;
+    onClick: (item: T, getAllItems: () => void) => void;
 }
 
 
@@ -227,8 +226,6 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
             title: `Editing ${props.itemName}`,
         });
 
-        await timeout(3000);
-
         const updateItemResult = await props.crudService.update(localItemBeingEdited);
         if (updateItemResult.isSuccess == false) {
             notificationService.show({
@@ -405,7 +402,7 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
                                                                     class="pointer action-item"
                                                                     size="xl"
                                                                     order={action.order}
-                                                                    onClick={() => action.onClick(item)}
+                                                                    onClick={() => action.onClick(item, getAllItems)}
                                                                 >{action.emoji}</Text>
                                                             </Tooltip>
                                                         )}

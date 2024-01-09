@@ -91,7 +91,7 @@ export const Sidebar: Component = () => {
 
                             <For each={menuItems}>
                                 {(menuItem) => (
-                                    <Show when={permissions().includes(menuItem.requiredPerm)}>
+                                    <Show when={(Array.isArray(permissions()) ? permissions() : []).includes(menuItem.requiredPerm)}>
                                         <SidebarNavLink
                                             href={menuItem.route}
                                             opacity={menuItem.disabled === true ? 0.25 : 1}

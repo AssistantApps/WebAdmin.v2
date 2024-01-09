@@ -120,7 +120,7 @@ export const FormImageDragAndDrop: Component<IFormImageDragAndDropProps> = (prop
     const [images, setImages] = createSignal<Array<IPastedImage>>([]);
 
     // I handle the paste event on the Window (see host bindings).
-    const handlePaste = (event: any): void => {
+    const handlePaste = async (event: any): Promise<void> => {
         const isValid = event.clipboardData &&
             event.clipboardData.files &&
             event.clipboardData.files.length;
@@ -132,14 +132,23 @@ export const FormImageDragAndDrop: Component<IFormImageDragAndDropProps> = (prop
         const images: Array<IPastedImage> = [];
         for (let fileIndex = 0; fileIndex < files.length; fileIndex++) {
             const file = files[fileIndex];
+            const contentPromise = new Promise<string>((resolve) => {
+                const reader = new FileReader()
+                reader.onload = async function (evt) {
+                    const pdfContent: string = evt?.target?.result as string
+                    resolve(pdfContent)
+                }
+
+                reader.readAsDataURL(file)
+            })
+            const binaryContent = await contentPromise;
+
             const fileId = uuidv4();
             const fileName = fileId + '.png';
-            const imageFormData = new FormData();
-            imageFormData.append(fileName, file);
             images.push({
                 id: fileId,
                 name: fileName,
-                contents: imageFormData,
+                contents: binaryContent,
             });
         }
 

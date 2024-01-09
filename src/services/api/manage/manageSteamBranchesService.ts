@@ -1,12 +1,10 @@
 import { Container, Service } from "typedi";
 
 import { Result, ResultWithValue } from "../../../contracts/resultWithValue";
-import { getConfig } from "../../internal/configService";
-import { BaseApiService } from '../baseApiService';
-import { addAccessTokenToHeaders, BaseCrudService } from "./baseCrudService";
+import { BaseCrudService } from "./baseCrudService";
 import { AppType, IApiSearch, ISteamController } from "@assistantapps/assistantapps.api.client";
 import { getAssistantAppsApi } from "../assistantAppsApiService";
-import { ISteamBranchRow } from "@assistantapps/assistantapps.api.client/lib/services/api/controller/steam.controller";
+import { ISteamBranchRow } from "@assistantapps/assistantapps.api.client";
 
 @Service()
 export class ManageSteamBranchService implements BaseCrudService<ISteamBranchRow> {
