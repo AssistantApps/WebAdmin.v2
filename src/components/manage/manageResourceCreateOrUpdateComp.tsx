@@ -1,4 +1,4 @@
-import { Component, createSignal, For } from 'solid-js';
+import { Component, createEffect, createSignal, For } from 'solid-js';
 import { ManageResourceMode } from '../../constants/enum/manageResourceMode';
 
 import { anyObject } from '../../helper/typescriptHacks';

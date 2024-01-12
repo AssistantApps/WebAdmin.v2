@@ -128,7 +128,12 @@ export const ManageResourceBasePage: Component<IProps<any, any>> = <T extends ID
             setTotalRows(allItemsResult.value.length);
             setTotalPages(Math.floor(allItemsResult.value.length / pageSize()));
             if (props.setSortOrderOnItemLoad == true) {
-                setSortOrder(allItemsResult.value.length + 1);
+                const localSortOrder = allItemsResult.value.length + 1;
+                setSortOrder(localSortOrder);
+                setItemBeingCreated(prev => ({
+                    ...prev,
+                    sortOrder: localSortOrder
+                }));
             }
         }
         setNetworkState(NetworkState.Success);

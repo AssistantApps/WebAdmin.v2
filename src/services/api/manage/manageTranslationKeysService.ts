@@ -30,6 +30,7 @@ export class ManageTranslationKeysService implements BaseCrudService<Translation
         for (const translationKeyImage of (translationKeyImages ?? [])) {
             await translationImageServ.add(
                 createResponse.value,
+                translationKeyImage.name ?? 'unknown',
                 translationKeyImage.contents,
             );
         }
@@ -66,8 +67,25 @@ export class ManageTranslationKeysService implements BaseCrudService<Translation
         return await this.readAll(search);
     }
 
-    update(item: TranslationKeyViewModel): Promise<Result> {
-        return this._controller().update(item);
+    async update(item: TranslationKeyViewModel): Promise<Result> {
+        const { translationKeyImages, ...transKeyObj } = (item as any);
+
+        const updateResponse = await this._controller().update(transKeyObj);
+
+        if (updateResponse.isSuccess == false) {
+            return updateResponse;
+        }
+
+        const translationImageServ = getManageTranslationImageService();
+        for (const translationKeyImage of (translationKeyImages ?? [])) {
+            await translationImageServ.add(
+                transKeyObj.guid,
+                translationKeyImage.name ?? 'unknown',
+                translationKeyImage.contents,
+            );
+        }
+
+        return updateResponse;
     }
 
     del(item: TranslationKeyViewModel): Promise<Result> {

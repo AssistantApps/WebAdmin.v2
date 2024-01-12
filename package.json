@@ -10,7 +10,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@assistantapps/assistantapps.api.client": "^0.0.20",
+    "@assistantapps/assistantapps.api.client": "^0.0.26",
     "dayjs": "^1.11.7",
     "dotenv": "^16.0.3",
     "jose": "^4.13.1",
